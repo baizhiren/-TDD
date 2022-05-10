@@ -1,5 +1,5 @@
 from email import header
-import imp
+from urllib import response
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
@@ -34,16 +34,19 @@ class NewVisitorTest(unittest.TestCase):
 
         #she types "Bye some peacock feathers" into a text box(Edith's hobby is trying fly-fishing lures) 
         inputbox.send_keys('Buy peacock feathers')
+     
 
         #when she hits enter, the page updates, and now the page lists 
         #"1: Buy peacock feathers" as an item in a to-do list
-        inputbox.send_keys(Keys.Enter)
+        inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
+       
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text == '1: Buy peacock feathers' for row in rows)
+            any(row.text == '1: Buy peacock feathers' for row in rows),
+            "New to do item did not appear in table"
         )
 
         #There is still a text box inviting her to add another item. She
@@ -59,6 +62,7 @@ class NewVisitorTest(unittest.TestCase):
         #she visits that URL - her to-do list is still there.
 
         # Satisfied, she goes back to sleep 
+    
 
 
 if __name__ == '__main__':
