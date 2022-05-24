@@ -4,9 +4,10 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 from selenium.webdriver.common.by import By
+from django.test import LiveServerTestCase
 import unittest
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
         chrome_driver = r"C:\Program Files\Google\Chrome\Application\chromedriver.exe"
         self.browser =  webdriver.Chrome(executable_path = chrome_driver)
@@ -22,7 +23,9 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. 
         # She goes to check out its homepage.
-        self.browser.get('http://localhost:8000')
+        
+        #self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # she notice the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title), "Browser title was: " + self.browser.title
@@ -45,15 +48,14 @@ class NewVisitorTest(unittest.TestCase):
         #"1: Buy peacock feathers" as an item in a to-do list
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
-        self.check_for_row_in_list_table('1: Buy peacock feather')
+        self.check_for_row_in_list_table('1: Buy peacock feathers')
 
         #There is still a text box inviting her to add another item. She
         #enters "Use peacock feathers to make a fly" (Edith us very methodical)
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Use peacock feather to make a fly')
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
-
+    
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacock feather to make a fly')
 
@@ -77,11 +79,6 @@ class NewVisitorTest(unittest.TestCase):
         #she visits that URL - her to-do list is still there.
 
         # Satisfied, she goes back to sleep 
-    
-
-
-if __name__ == '__main__':
-    unittest.main(warnings = 'ignore')
     
 
 
