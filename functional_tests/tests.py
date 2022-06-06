@@ -6,12 +6,12 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 from selenium.webdriver.common.by import By
-from django.test import LiveServerTestCase
 from selenium.common.exceptions import WebDriverException
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import unittest
 MAX_WAIT = 10
 chrome_driver = r"C:\Program Files\Google\Chrome\Application\chromedriver.exe"
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser =  webdriver.Chrome(executable_path = chrome_driver)
     
@@ -150,6 +150,7 @@ class NewVisitorTest(LiveServerTestCase):
             512,
             delta = 10
         )
+        time.sleep(10)
     
 
 
