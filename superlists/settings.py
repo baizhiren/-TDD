@@ -72,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'superlists.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = ['http://8.136.124.155']
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -82,7 +83,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, '../database/db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
